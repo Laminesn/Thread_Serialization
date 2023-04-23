@@ -76,6 +76,8 @@ void task_H()
 /* semaphores are declared global so they can be accessed
  in main() and in thread routine. */
 Semaphore A_Done(0);
+Semaphore E_Done(0);
+Semaphore F_Done(0);
 
 
 int main()
@@ -103,14 +105,16 @@ int main()
 
 void *thread_1(void *ptr)
 {   
-    sleep(4);
+    sleep(3);
     task_A(); 
     A_Done.signal();       // Signal (semaphore) that task A is done
     
+    E_Done.wait();	// Check (sempahore) if task E is done
     task_B(); 
 
     task_C(); 
     
+    F_Done.wait();	// Check (semaphore) if task F is done
     task_D(); 
     
     pthread_exit(0); /* exit thread */
@@ -118,9 +122,11 @@ void *thread_1(void *ptr)
 
 void *thread_2(void *ptr)
 {    
-    task_E(); 
+    task_E();
+    E_Done.signal();	// Signal (semaphore) that task E is done 
     
-    task_F(); 
+    task_F();
+    F_Done.signal();	// Signal (sempahore) that task F is done
 
     task_C(); 
     
