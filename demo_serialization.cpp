@@ -1,11 +1,6 @@
 //
-// Example from: http://www.amparo.net/ce155/sem-ex.c
-//
-// Adapted using some code from Downey's book on semaphores
-//
-// Compilation:
-//
-//       g++ serialization.cpp -lpthread -o serial -lm
+// Author: Lamine Deen
+// Project: Thread Serialization
 //
 /* Includes */
 
